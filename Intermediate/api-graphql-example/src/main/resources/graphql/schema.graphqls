@@ -1,0 +1,20 @@
+type ArticleData {
+    id: ID!
+    content: String!
+    commentary:[CommentaryAboutArticle]
+}
+
+type CommentaryAboutArticle{
+    id: ID!
+    content: String!
+    articleId: String!
+}
+
+type Query {
+    articleById(id:ID!): ArticleData
+}
+
+type Mutation {
+    createArticleData(content:String!): [ArticleData]
+    createCommentaryAboutArticle(content: String!, articleId: String!):[CommentaryAboutArticle]
+}
