@@ -1,5 +1,5 @@
 @Service
-class ArticleService{
+class CommentaryAboutArticleService{
     Map<String, CommentaryAboutArticle> commentaryAboutArticle = new HashMap();
 
     //Method to create the article
