@@ -1,1 +1,0 @@
-# training-domain-driven-design
