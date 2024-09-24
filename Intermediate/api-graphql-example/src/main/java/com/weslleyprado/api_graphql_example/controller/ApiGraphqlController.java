@@ -41,5 +41,4 @@ class ApiGraphqlController{
     public Collection<CommentaryAboutArticle> commentary(ArticleData articleData){
         return commentaryAboutArticleService.findByArticleData(articleData.id());
     }
-
 }
