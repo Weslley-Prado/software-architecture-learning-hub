@@ -1,7 +1,7 @@
 export default class OrderItem {
   private _id: string;
-  private _productId: string;
   private _name: string;
+  private _productId: string;
   private _price: number;
   private _quantity: number;
   private _total: number;
