@@ -154,10 +154,10 @@ describe("Order repository test", () => {
   
     const orderItem = new OrderItem(
       "1",
-      product.name, // nome do produto
+      product.name, 
       product.price, 
       product.id,
-      10 // quantidade
+      10 
     );
     const order = new Order("123", customer.id, [orderItem]);
   
@@ -166,12 +166,12 @@ describe("Order repository test", () => {
   
     const foundOrder = await orderRepository.find(order.id);
   
-    // Comparação individual
+    
     expect(foundOrder.id).toEqual(order.id);
     expect(foundOrder.customerId).toEqual(order.customerId);
     expect(foundOrder.items.length).toBe(order.items.length);
     expect(foundOrder.items[0].id).toEqual(order.items[0].id);
-// Verificar total da ordem
+
   });
   
   it("should delete an order", async () => {
@@ -205,4 +205,53 @@ describe("Order repository test", () => {
 
     expect(orderModel).toBeNull();
   });
+
+  it('should return all orders', async () => {
+    const customerRepository = new CustomerRepository();
+    const customer = new Customer("123", "Customer 1");
+    const address = new Address("Street 1", 1, "Zipcode 1", "City 1");
+    customer.changeAddress(address);
+    await customerRepository.create(customer);
+  
+    const productRepository = new ProductRepository();
+    const product1 = new Product("455", "Product 2", 20);
+    const product2 = new Product("456", "Product 2", 20);
+    await productRepository.create(product1);
+    await productRepository.create(product2);
+  
+    const orderItem1 = new OrderItem(
+      "1",
+      product1.name,
+      product1.price,
+      product1.id,
+      2
+    );
+  
+    const orderItem2 = new OrderItem(
+      "2",
+      product2.name,
+      product2.price,
+      product2.id,
+      3
+    );
+  
+    const order1 = new Order("123", customer.id, [orderItem1]);
+    const order2 = new Order("456", customer.id, [orderItem2]);
+  
+    const orderRepository = new OrderRepository();
+    await orderRepository.create(order1);
+    await orderRepository.create(order2);
+  
+    const orders = await orderRepository.findAll();
+
+
+    expect(orders).toHaveLength(2);
+
+    expect(orders[0].id).toBe("123");
+
+    expect(orders[1].id).toBe("456");
+
+  });
+  
+  
 });
